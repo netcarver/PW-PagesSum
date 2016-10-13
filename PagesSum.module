@@ -1,0 +1,60 @@
+<?php
+
+class PagesSum extends WireData implements Module {
+
+    public static function getModuleInfo() {
+
+        return array(
+            'title'    => 'Pages Sum',
+            'version'  => '1.0.0',
+            'summary'  => 'Adds a $pages->sum($selectorString, $fieldName) method to sum the value of a specific field over a list of pages selected by a selector string.',
+            'singular' => true,
+            'autoload' => true,
+            'author'   => 'ESRCH',
+            'href'     => 'https://processwire.com/talk/topic/8524-creating-a-fast-pages-sum-function/?do=findComment&comment=82519',
+            'requires' => 'ProcessWire>2.7.0',
+        );
+    }
+
+    public function init() {
+        $this->addHook('Pages::sum', function ($event) {
+            $selectorString = $event->arguments(0);
+            $fieldName = $event->arguments(1);
+
+            // Find all the pages associated with the selector string
+            $pageFinder = new PageFinder();
+            $idQuery = $pageFinder->findIDs(new Selectors($selectorString), array('returnQuery' => true));
+            $idQuery->set('orderby', array());
+            $idQuery->set('groupby', array());
+            $idQuery->set('limit', array());
+            $stmt = $idQuery->execute();
+            $idArray = $stmt->fetchAll(PDO::FETCH_COLUMN);
+            // If no pages were found, return 0
+            if (count($idArray) == 0) {
+                $event->return = 0;
+                return;
+            }
+            $idString = implode(',', $idArray);
+
+            // Get the table name for the given field name
+            $field = $this->fields->get($fieldName);
+            // If no field with this name is found, return 0;
+            if (!$field) {
+                $event->return = 0;
+                return;
+            }
+            $tableName = $field->getTable();
+
+            // Run the SUM query
+            $sumQuery = new DatabaseQuerySelect();
+            $sumQuery->select("SUM(data)");
+            $sumQuery->from($tableName);
+            $sumQuery->where("pages_id IN ($idString)");
+            $stmt2 = $sumQuery->execute();
+            list($total) = $stmt2->fetch(PDO::FETCH_NUM);
+
+            $event->return = $total;
+        });
+    }
+
+}
