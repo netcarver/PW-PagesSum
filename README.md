@@ -8,7 +8,7 @@ function.
 
 ## Credit
 
-This is ERSCH's work. I've just put it on github to make it a little more accessible (it's buried deep in the
+This is ESRCH's work. I've just put it on github to make it a little more accessible (it's buried deep in the
 Processwire forums.)
 
 
