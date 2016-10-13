@@ -8,7 +8,8 @@ function.
 
 ## Credit
 
-This is ERSCH's published work.
+This is ERSCH's work. I've just put it on github to make it a little more accessible (it's buried deep in the
+Processwire forums.)
 
 
 ##Method Of Operation
@@ -31,8 +32,12 @@ install from a zip file. The zip file to use is the master branch zip from the g
 
 If you wanted to sum a field called 'costs' across all pages using the 'job' template, you'd simply do this...
 
-   <p>Job costs £<?php echo $pages->sum('template=jobs', 'costs'); ?></p>
+```
+<p>Job costs £<?php echo $pages->sum('template=jobs', 'costs'); ?></p>
+```
 
 And if you wanted things a little more formatted, just run that through number_format first...
 
-   <p>Job costs £<?php echo number_format($pages->sum('template=jobs', 'costs'), 2); ?></p>
+```
+<p>Job costs £<?php echo number_format($pages->sum('template=jobs', 'costs'), 2); ?></p>
+```
