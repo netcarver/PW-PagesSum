@@ -14,7 +14,7 @@ Processwire forums.)
 
 ##Method Of Operation
 
-The module uses ProcessWire's ability to extend it's classes by adding new hook functions to them. It adds one method
+The module uses ProcessWire's ability to extend its classes by adding new hook functions to them. It adds one method
 _sum_ to the Pages class. Thus, anywhere you get access to the $pages class, you can get a sum worked out from any
 subset of pages. The subset is defined using PWs [selectors](http://processwire.com/api/selectors/).
 
