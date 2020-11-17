@@ -12,7 +12,7 @@ This is ESRCH's work. I've just put it on github to make it a little more access
 Processwire forums.)
 
 
-##Method Of Operation
+## Method Of Operation
 
 The module uses ProcessWire's ability to extend its classes by adding new hook functions to them. It adds one method
 _sum_ to the Pages class. Thus, anywhere you get access to the $pages class, you can get a sum worked out from any
@@ -22,13 +22,13 @@ The summation is fast as it uses MySQL to sum the underlying data rather than ha
 selected set and pull out a value.
 
 
-##Installation
+## Installation
 
 In the Processwire modules page, click the "New" tab and either enter PagesSum into the box or choose the option to
 install from a zip file. The zip file to use is the master branch zip from the gihub repository, [here](https://github.com/netcarver/PW-PagesSum/archive/master.zip).
 
 
-##Example Use In Template File
+## Example Use In Template File
 
 If you wanted to sum a field called 'costs' across all pages using the 'job' template, you'd simply do this...
 
